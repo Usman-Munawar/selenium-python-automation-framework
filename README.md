@@ -11,7 +11,7 @@ The framework follows the **Page Object Model (POM)** design pattern to ensure m
 
 ## 🛠 Tech Stack
 
-* Python 3
+* Python 3.12.1
 * Selenium WebDriver
 * Pytest
 * WebDriver Manager
