@@ -15,3 +15,9 @@ def test_user_logout(driver):
     # Login
     login_page.login(config["valid_username"], config["valid_password"])
 
+    # Logout
+    products_page.logout()
+
+    # Validate redirected to login page
+    assert "saucedemo.com" in driver.current_url
+    assert "inventory" not in driver.current_url
