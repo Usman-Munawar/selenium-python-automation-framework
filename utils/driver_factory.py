@@ -2,15 +2,25 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
+
 def get_driver():
     options = webdriver.ChromeOptions()
 
-    options.add_argument("--start-maximized")
+    # CI/CD compatible options
+    options.add_argument("--headless=new")
+    options.add_argument("--window-size=1920,1080")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+
+    # Existing options
     options.add_argument("--incognito")
     options.add_argument("--disable-notifications")
 
-    # Important: disable Chrome password breach popup
-    options.add_argument("--disable-features=PasswordLeakDetection,PasswordManagerEnabled")
+    # Disable Chrome password manager popups
+    options.add_argument(
+        "--disable-features=PasswordLeakDetection,PasswordManagerEnabled"
+    )
 
     options.add_experimental_option("prefs", {
         "credentials_enable_service": False,
@@ -22,4 +32,5 @@ def get_driver():
         service=Service(ChromeDriverManager().install()),
         options=options
     )
+
     return driver
